@@ -1,0 +1,1 @@
+# Projeto de Cadastro simples feito em React/Next.JS
