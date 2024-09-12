@@ -1,12 +1,25 @@
+
+import Layout from "../components/Layout";
 import React from "react";
+import Tabela from "../components/Tabela";
+import Cliente from "../core/Cliente";
 
 export default function Home() {
+
+  const clientes = [
+    new Cliente('Camila', 30, '1'), 
+    new Cliente('Gustavo', 28, '2'), 
+    new Cliente('Azeitona', 5, '3')
+  ]
   return (
     <div className={`
       flex h-screen justify-center items-center
-      bg-gradient-to-r from-purple-400 via-pink-300 to-blue-300
+      bg-pink-100
+      text-white
     `}>
-      <span className="text-4xl">Texto</span>
+      <Layout titulo="Cadastro Simples">
+         <Tabela clientes={clientes}></Tabela>
+      </Layout>
     </div>
   );
 }
