@@ -17,9 +17,23 @@ export default function Tabela(props: TabelaProps) {
                 <th className="text-left p-4">Código</th>
                 <th className="text-left p-4">Nome</th>
                 <th className="text-left p-4">Idade</th>
-                {exibirAcoes ? <th>Ações</th> : false}
+                {exibirAcoes ? <th className="p-4">Ações</th> : false}
             </tr>
         )
+    }
+
+    function renderData() {
+        return props.clientes?.map((cliente, i) => {
+            return (
+                <tr key={cliente.id}
+                    className={`${i % 2 === 0 ? 'bg-pink-50' : 'bg-pink-100'}`}>
+                    <td className="text-left p-4">{cliente.id}</td>
+                    <td className="text-left p-4">{cliente.nome}</td>
+                    <td className="text-left p-4">{cliente.idade}</td>
+                    {exibirAcoes ? renderActions(cliente) : false}
+                </tr>
+            )
+        })
     }
 
     function renderActions(cliente: Cliente) {
@@ -47,19 +61,6 @@ export default function Tabela(props: TabelaProps) {
         )
     }
 
-    function renderData() {
-        return props.clientes?.map((cliente, i) => {
-            return (
-                <tr key={cliente.id}
-                    className={`${i % 2 === 0 ? 'bg-pink-50' : 'bg-pink-100'}`}>
-                    <td className="text-left p-4">{cliente.id}</td>
-                    <td className="text-left p-4">{cliente.nome}</td>
-                    <td className="text-left p-4">{cliente.idade}</td>
-                    {exibirAcoes ? renderActions(cliente) : false}
-                </tr>
-            )
-        })
-    }
 
     return(
             <table className="w-full rounded-xl overflow-hidden">

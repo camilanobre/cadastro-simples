@@ -1,20 +1,23 @@
 import Layout from "../components/Layout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabela from "../components/Tabela";
 import Cliente from "../core/Cliente";
 import Botao from "../components/Botao";
 import Formulario from "../components/Formulario";
+import ClienteRepositorio from "../core/ClienteRepositorio";
+import ColecaoCliente from "../backend/db/ColecaoCliente";
 
 export default function Home() {
 
-  const [visivel, setVisivel] = useState<"tabela" | "form">("tabela");
-  const [cliente, setCliente] = useState<Cliente>(Cliente.vazio())
+  const repo: ClienteRepositorio = new ColecaoCliente()
 
-  const clientes = [
-    new Cliente("Camila", 30, "1"),
-    new Cliente("Gustavo", 28, "2"),
-    new Cliente("Azeitona", 5, "3"),
-  ];
+  const [cliente, setCliente] = useState<Cliente>(Cliente.vazio())
+  const [clientes, setClientes] = useState<Cliente[]>([])
+  const [visivel, setVisivel] = useState<"tabela" | "form">("tabela")
+
+  useEffect(() => {
+    repo.obterTodos().then(setClientes)
+  }, [])
 
   function clienteSelecionado(cliente: Cliente) {
     setCliente(cliente)
