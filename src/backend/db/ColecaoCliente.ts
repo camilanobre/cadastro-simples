@@ -1,7 +1,7 @@
 import { getFirestore, collection, doc, setDoc, getDoc, addDoc, deleteDoc, getDocs, query, QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 import Cliente from "../../core/Cliente";
 import ClienteRepositorio from "../../core/ClienteRepositorio";
-import { firebaseApp } from "../config"; // Supondo que você tenha inicializado o Firebase no config.ts
+import { firebaseApp } from "../config";
 
 export default class ColecaoCliente implements ClienteRepositorio {
     #conversor = {
