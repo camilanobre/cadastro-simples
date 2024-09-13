@@ -1,8 +1,10 @@
 
 import Layout from "../components/Layout";
-import React from "react";
+import React, { useState } from "react";
 import Tabela from "../components/Tabela";
 import Cliente from "../core/Cliente";
+import Botao from "../components/Botao";
+import Formulario from "../components/Formulario";
 
 export default function Home() {
 
@@ -11,6 +13,13 @@ export default function Home() {
     new Cliente('Gustavo', 28, '2'), 
     new Cliente('Azeitona', 5, '3')
   ]
+
+  function clienteSelecionado(cliente: Cliente) {
+    console.log(cliente.nome)
+  }
+
+  const [visivel, setVisivel] = useState<'tabela' | 'form'>('tabela')
+
   return (
     <div className={`
       flex h-screen justify-center items-center
@@ -18,7 +27,11 @@ export default function Home() {
       text-white
     `}>
       <Layout titulo="Cadastro Simples">
-         <Tabela clientes={clientes}></Tabela>
+          <div className="flex justify-end">
+          <Botao className="mb-4">Novo Cliente</Botao>
+          </div>
+         <Tabela clientes={clientes} clienteSelecionado={clienteSelecionado}></Tabela>
+         <Formulario cliente={clientes[0]}></Formulario>
       </Layout>
     </div>
   );

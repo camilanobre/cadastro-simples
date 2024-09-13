@@ -1,10 +1,15 @@
 import Cliente from "../core/Cliente"
+import { EditIcon, DeleteIcon } from "./Icons"
 
 interface TabelaProps {
     clientes: Cliente[]
+    clienteSelecionado?: (cliente: Cliente) => void
+    clienteExcluido?: (cliente: Cliente) => void
 }
 
 export default function Tabela(props: TabelaProps) {
+
+    const exibirAcoes = props.clienteExcluido || props.clienteSelecionado
 
     function renderHeader() {
         return (
@@ -12,7 +17,33 @@ export default function Tabela(props: TabelaProps) {
                 <th className="text-left p-4">Código</th>
                 <th className="text-left p-4">Nome</th>
                 <th className="text-left p-4">Idade</th>
+                {exibirAcoes ? <th>Ações</th> : false}
             </tr>
+        )
+    }
+
+    function renderActions(cliente: Cliente) {
+        return(
+            <td className="flex justify-center">
+                {props.clienteSelecionado ? (
+                     <button onClick={() => props.clienteSelecionado?.(cliente)}
+                        className={`flex justify-center items-center
+                        text-orange-950 rounded-full
+                        hover:bg-red-100
+                        p-2 m-1`}>
+                        {EditIcon}
+                    </button>
+                ) : false}
+                {props.clienteExcluido ? (
+                     <button onClick={() => props.clienteExcluido?.(cliente)}
+                        className={`flex justify-center items-center
+                        text-red-500 rounded-full
+                        hover:bg-red-100
+                        p-2 m-1`}>
+                        {DeleteIcon}
+                    </button>
+                ) : false}             
+            </td>
         )
     }
 
@@ -24,6 +55,7 @@ export default function Tabela(props: TabelaProps) {
                     <td className="text-left p-4">{cliente.id}</td>
                     <td className="text-left p-4">{cliente.nome}</td>
                     <td className="text-left p-4">{cliente.idade}</td>
+                    {exibirAcoes ? renderActions(cliente) : false}
                 </tr>
             )
         })
